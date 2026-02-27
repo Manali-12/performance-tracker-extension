@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Web Performance Monitor",
+  "version": "0.1.0",
+  "description": "Monitors performance metrics for a configured web app and stores historical sessions locally.",
+  "action": {
+    "default_title": "Web Performance Monitor",
+    "default_popup": "src/popup/popup.html"
+  },
+  "background": {
+    "service_worker": "src/background/index.ts",
+    "type": "module"
+  },
+  "permissions": [
+    "storage",
+    "unlimitedStorage",
+    "alarms",
+    "scripting",
+    "activeTab",
+    "tabs"
+  ],
+  "optional_host_permissions": [
+    "https://*/*"
+  ]
+}

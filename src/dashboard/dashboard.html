@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Performance Monitor - Analytics</title>
+    <link rel="stylesheet" href="./dashboard.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="title">
+          <h1>Analytics Dashboard</h1>
+          <p class="subtitle">Web Performance Monitor</p>
+          <div class="domain-header">
+            <label for="domain-selector">Domain</label>
+            <div class="domain-row">
+              <select id="domain-selector"></select>
+              <button id="add-domain" type="button">Add Domain</button>
+              <button id="delete-domain" type="button">Delete Domain</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <div class="control">
+            <label for="active-tag">Active Tag</label>
+            <select id="active-tag"></select>
+          </div>
+          <div class="control actions">
+            <button id="add-version" type="button">Add Version</button>
+          </div>
+          <div class="control actions">
+            <button id="delete-version" type="button">Delete Version</button>
+          </div>
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="Dashboard tabs">
+          <button id="tab-btn-data" type="button" class="tab active" role="tab" aria-selected="true">Data</button>
+          <button id="tab-btn-graphs" type="button" class="tab" role="tab" aria-selected="false">Graphs</button>
+          <button id="tab-btn-settings" type="button" class="tab" role="tab" aria-selected="false">Domain Settings</button>
+        </div>
+      </header>
+
+      <div id="tab-panel-data" class="tab-panel active" role="tabpanel" aria-labelledby="tab-btn-data">
+        <section class="section">
+          <div class="section-header">
+            <h2>All Sessions Data</h2>
+            <p class="hint">Raw per-session metrics for the selected Active Tag.</p>
+          </div>
+          <div id="sessions-empty" class="empty"></div>
+          <table id="sessions-table" class="regression-table"></table>
+        </section>
+      </div>
+
+      <div id="tab-panel-graphs" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-graphs">
+        <div class="graphs-grid">
+          <section class="section graph-card">
+            <div class="section-header">
+              <h2>Overview Trend</h2>
+              <p class="hint">Total load time trend for the selected Active Tag (last 25 sessions).</p>
+            </div>
+            <div id="overview-empty" class="empty"></div>
+            <div class="chart-container">
+              <canvas id="overviewCanvas"></canvas>
+            </div>
+          </section>
+
+          <section class="section graph-card">
+            <div class="section-header">
+              <h2>LCP Trend</h2>
+              <p class="hint">Largest Contentful Paint trend (last 25 sessions).</p>
+            </div>
+            <div id="lcp-trend-empty" class="empty"></div>
+            <div class="chart-container">
+              <canvas id="lcpTrendCanvas"></canvas>
+            </div>
+          </section>
+
+          <section class="section graph-card">
+            <div class="section-header">
+              <h2>FCP Trend</h2>
+              <p class="hint">First Contentful Paint trend (last 25 sessions).</p>
+            </div>
+            <div id="fcp-trend-empty" class="empty"></div>
+            <div class="chart-container">
+              <canvas id="fcpTrendCanvas"></canvas>
+            </div>
+          </section>
+
+          <section class="section graph-card">
+            <div class="section-header">
+              <h2>CLS Trend</h2>
+              <p class="hint">Cumulative Layout Shift trend (last 25 sessions).</p>
+            </div>
+            <div id="cls-trend-empty" class="empty"></div>
+            <div class="chart-container">
+              <canvas id="clsTrendCanvas"></canvas>
+            </div>
+          </section>
+        </div>
+
+        <section class="section">
+          <div class="section-header">
+            <h2>Web Vitals Comparison</h2>
+            <p class="hint">Compare averages between two tags.</p>
+          </div>
+
+          <div class="compare-row">
+            <div class="control">
+              <label for="compare-tag-a">Tag A</label>
+              <select id="compare-tag-a"></select>
+            </div>
+            <div class="control">
+              <label for="compare-tag-b">Tag B</label>
+              <select id="compare-tag-b"></select>
+            </div>
+            <div class="control actions">
+              <button id="compare" type="button">Compare</button>
+            </div>
+          </div>
+
+          <div id="compare-empty" class="empty"></div>
+          <div class="chart-container">
+            <canvas id="compareCanvas"></canvas>
+          </div>
+
+          <table id="comparison-table" class="regression-table"></table>
+        </section>
+
+        <section class="section" id="regression-section">
+          <div id="regression-banner" class="banner"></div>
+          <div class="section-header">
+            <h2>Performance Regression Analysis</h2>
+          </div>
+          <div id="regression-empty" class="empty"></div>
+          <table id="regression-table" class="regression-table"></table>
+        </section>
+      </div>
+
+      <div id="tab-panel-settings" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-settings">
+        <section class="section">
+          <div class="section-header">
+            <h2>Domain Settings</h2>
+            <p class="hint">Manage allowed domains and optional URL path patterns for capturing sessions.</p>
+          </div>
+          <div id="domain-settings-root"></div>
+        </section>
+      </div>
+
+      <div id="modal" class="modal" aria-hidden="true">
+        <div class="modal-backdrop"></div>
+        <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+          <h3 id="modal-title" class="modal-title"></h3>
+          <p id="modal-message" class="modal-message"></p>
+          <input id="modal-input" class="modal-input" type="text" />
+          <div class="modal-actions">
+            <button id="modal-cancel" type="button">Cancel</button>
+            <button id="modal-confirm" type="button">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="./dashboard.ts"></script>
+  </body>
+</html>
