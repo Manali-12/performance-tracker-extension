@@ -1,4 +1,4 @@
-# Angular Performance Monitor (Chrome Extension)
+# Performance Monitor (Chrome Extension)
 
 Scaffolding-only Phase 1 implementation: Manifest V3 + TypeScript (strict) + Vite + `@crxjs/vite-plugin` + IndexedDB (`idb`).
 
