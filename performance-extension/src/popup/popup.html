@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Performance Monitor</title>
+    <link rel="stylesheet" href="./popup.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Web Performance Monitor</h1>
+        <p class="subtitle">Core Web Vitals Summary</p>
+
+        <div class="tag-bar" aria-label="Active version tag">
+          <div class="tag-label">Active Tag</div>
+          <select id="active-tag" class="tag-select" aria-label="Active Tag"></select>
+          <button id="new-tag" type="button" class="tag-button">Add Version</button>
+        </div>
+      </header>
+
+      <div id="not-allowed" class="empty" style="display:none">
+        <p>Monitoring not enabled for this site.</p>
+        <button id="enable-monitoring" type="button">Enable Monitoring</button>
+      </div>
+
+      <div id="summary" style="display:block">
+        <section class="section" aria-labelledby="latest-session-title">
+          <h2 class="section-title" id="latest-session-title">Latest Session Summary</h2>
+          <div id="latest-session" class="empty">Loading...</div>
+        </section>
+
+        <section class="section" aria-labelledby="storage-usage-title">
+          <h2 class="section-title" id="storage-usage-title">Storage Usage</h2>
+          <div id="storage-usage" class="empty">Loading...</div>
+        </section>
+      </div>
+
+      <footer>
+        <button id="refresh" type="button">Refresh</button>
+        <button id="open-analytics" type="button">Open Analytics</button>
+      </footer>
+
+      <div id="modal" class="modal" aria-hidden="true">
+        <div class="modal-backdrop"></div>
+        <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+          <h3 id="modal-title" class="modal-title"></h3>
+          <p id="modal-message" class="modal-message"></p>
+          <input id="modal-input" class="modal-input" type="text" />
+          <div class="modal-actions">
+            <button id="modal-cancel" type="button">Cancel</button>
+            <button id="modal-confirm" type="button">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="./popup.ts"></script>
+  </body>
+</html>
